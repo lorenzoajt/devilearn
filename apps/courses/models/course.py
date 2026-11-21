@@ -9,6 +9,11 @@ class Course(models.Model):
     overview = models.TextField()
     created_at = models.DateField(auto_now_add=True)
     categories = models.ManyToManyField(Category, through='CourseCategory',related_name="courses")
+    image = models.URLField()
+    levels = models.CharField(max_length=50)
+    rating = models.FloatField(default=0.0)
+    content_duration = models.FloatField(default=0.0)    
+
 
     class Meta:
         ordering = ["-created_at"] # forma descendente a su fecha de creación

@@ -3,6 +3,7 @@ from .module import Module
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
+from ..fields import OrderField
 
 class ItemBase(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='%(class)s_name' , on_delete=models.CASCADE) # el nombre es dinamico y varia dependiendo de la clase que lo hereda
@@ -39,4 +40,5 @@ class Content(models.Model):
     object_id = models.IntegerField()#guardar el object ID 
     # Asi aseguramos que podamos tener diferentes tipos de datos
     item = GenericForeignKey('content_type', 'object_id') #EJ: una imagen(content type) con el ID 3 (object_id)
+    order = OrderField(blank=True, for_fields=['module']) #el contenido va a ser calculado con respecto al modulo
 
